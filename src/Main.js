@@ -8,13 +8,15 @@ export default class Main {
 	constructor() {
 		Main.width = 1270;
 		Main.height = 640;
-		Main.tick = 'tick';
-		Main.click = 'click';
+
         const app = new Application({width: Main.width, height: Main.height, backgroundColor: 0x000000});
 		document.body.appendChild(app.view);
 		app.ticker.add(this.update, this);
 		Main.app = app;
-		this.main = app.stage.addChild(new Container());
+		this.box = app.stage.addChild(new Container());
+		this.box.position.set(Main.width * 0.5, Main.height * 0.5);
+		this.main = this.box.addChild(new Container());
+		this.main.position.set(-Main.width * 0.5, -Main.height * 0.5);
 		this.back = this.main.addChildAt(Sprite.from('./assets/back.jpg'), 0);
 		Loader.shared.add('art', './assets/texture.json')
 			.load(() => this.createRoom());
@@ -90,11 +92,14 @@ export default class Main {
 		}
 	}
 	resize(){
-		const w = window.innerWidth;
-		const h = window.innerHeight;
-		//тут по хорошему нужно еще позаниматся - пока тупой ресайз в размер окна
+		let w = window.innerWidth;
+		let h = window.innerHeight;
 		Main.app.view.style.width = w + "px";
-		Main.app.view.style.height = h + "px"
+		Main.app.view.style.height = h + "px";
+		const kfStage = Math.min(w / Main.width, h / Main.height);
+		w = Main.width * kfStage / w;
+		h = Main.height * kfStage / h;
+		this.box.scale.set(w, h);
 	}
 }
 var Root = new Main();
