@@ -92,6 +92,7 @@ export default class Main {
 	resize(){
 		const w = window.innerWidth;
 		const h = window.innerHeight;
+		//тут по хорошему нужно еще позаниматся - пока тупой ресайз в размер окна
 		Main.app.view.style.width = w + "px";
 		Main.app.view.style.height = h + "px"
 	}
