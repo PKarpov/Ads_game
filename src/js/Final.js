@@ -1,4 +1,4 @@
-import {Container, Graphics, Sprite, Texture, utils} from 'pixi.js';
+import {Container, Graphics, Sprite, utils} from 'pixi.js';
 import {mainObserver, EVENT_SHOW_FINAL, Glob} from "./Global";
 import {addScaleXYProperties} from "./utils"
 

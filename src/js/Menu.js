@@ -4,7 +4,7 @@ import Button from "./Button";
 
 export default class Menu extends Container {
     constructor(){
-        super()
+        super();
         this.addChild(new Button(0));
         this.addChild(new Button(1)).position.set(129, 0);
         this.addChild(new Button(2)).position.set(258, 0);
@@ -34,7 +34,6 @@ export default class Menu extends Container {
                     .to({alpha:1}, 500)
                     .start();
             }
-            setTimeout(()=>{this.run = false},600)
             this.old = button;
         });
     }

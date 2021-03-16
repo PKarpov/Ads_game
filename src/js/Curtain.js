@@ -8,12 +8,12 @@ export default class Curtain extends Graphics {
             .drawRect(0, 0, Glob.width, Glob.height);
     }
 
-    showCurtain(delay = 0) {
+    showCurtain() {
         this.alpha = 1;
         this.visible = true;
     }
 
-    hideCurtain(delay = 0) {
+    hideCurtain() {
         if (this.tw || this.alpha === 0) return;
         this.tw = new TWEEN.Tween(this)
             .to({alpha:0}, 500)

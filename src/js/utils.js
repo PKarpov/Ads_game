@@ -21,7 +21,7 @@ function addScaleXYProperties(object) {//для упрощения работы 
                     get() { return (this.tint & 0x0000ff)/255},
                     set(v) {
                         if (v >= 0 && v <= 1) {
-                            const cc = Math.round(v*255)
+                            const cc = Math.round(v * 255);
                             this.tint = cc << 16 | cc << 8 | cc;
                         } else {
                             console.error('value must be 0 - 1', v);

@@ -1,4 +1,4 @@
-import {Container, Sprite, utils, Texture, AnimatedSprite} from 'pixi.js';
+import {Container, Sprite, utils, AnimatedSprite} from 'pixi.js';
 import {addScaleXYProperties} from "./utils"
 import {Glob} from "./Global";
 

@@ -1,5 +1,5 @@
-import {Container, Sprite, Texture, utils} from 'pixi.js';
-import {mainObserver, EVENT_MENU_TAP, restructurinG, oldId, Glob} from "./Global";
+import { Sprite, utils} from 'pixi.js';
+import {mainObserver, EVENT_MENU_TAP, Glob} from "./Global";
 import {addScaleXYProperties} from "./utils"
 
 export default class Menu extends Sprite {
@@ -21,7 +21,7 @@ export default class Menu extends Sprite {
             .buttonMode = true;
     }
 
-    pointerTap(e) {
+    pointerTap() {
         if (Glob.restructurinG || this.ID === Glob.oldId) return;
         Glob.restructurinG = true;
         Glob.oldId = this.ID;

@@ -14,5 +14,5 @@ Object.defineProperties(Glob,{
         get() { return this.value1 },
         set(v) { this.value1 = v}
     }
-})
+});
 

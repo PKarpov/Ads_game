@@ -7,7 +7,7 @@ export default class Hammer extends Sprite{
         this.anchor.set(0.5, 1);
         this.position.set(1140, 287);
         this.alpha = 0;
-        this.on('pointertap', this.stopAllTweens, this, true)
+        this.once('pointertap', this.stopAllTweens, this, true)
             .buttonMode = true;
         this.show();
     }
@@ -43,13 +43,14 @@ export default class Hammer extends Sprite{
         tween = new TWEEN.Tween(this)
             .to({rotation:0.5}, 100)
             .easing(TWEEN.Easing.Exponential.In)
-            .chain(this.tweens[0])
+            .chain(this.tweens[0]);
         this.tweens.unshift(tween);
         tween = new TWEEN.Tween(this)
             .to({rotation:-0.3}, 200)
             .easing(TWEEN.Easing.Exponential.Out)
             .chain(this.tweens[0])
-            .start()
+            .start();
+        this.tweens.unshift(tween);
     }
 
     stopAllTweens(ok) {
@@ -66,7 +67,7 @@ export default class Hammer extends Sprite{
                 .to({alpha: 0.1}, 200)
                 .onComplete(()=>{
                     mainObserver.emit(EVENT_HAMMER_TAP);
-                    this.parent.removeChild(this)})
+                    this.destroy()})
                 .start();
         }
     }
