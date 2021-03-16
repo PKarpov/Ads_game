@@ -1,6 +1,6 @@
 import {Container, Sprite, utils, Texture, AnimatedSprite} from 'pixi.js';
 import {addScaleXYProperties} from "./utils"
-import Main from "../Main";
+import {Glob} from "./Global";
 
 export default class Stairs extends Container {
     constructor(){
@@ -34,7 +34,7 @@ export default class Stairs extends Container {
                 this.oldStair.texture = this.newStair.texture;
                 this.oldStair.alpha = 1;
                 this.newStair.visible = false;
-                Main.changes = false;
+                Glob.restructurinG = false;
             })
             .start();
     }

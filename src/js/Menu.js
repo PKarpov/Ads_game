@@ -1,5 +1,5 @@
-import {Container, Sprite, Graphics, RoundedRectangle} from 'pixi.js';
-import Main from "../Main";
+import {Container, Sprite, RoundedRectangle } from 'pixi.js';
+import {mainObserver, EVENT_MENU_TAP, EVENT_SHOW_FINAL} from "./Global";
 import Button from "./Button";
 
 export default class Menu extends Container {
@@ -14,17 +14,14 @@ export default class Menu extends Container {
         this.ok.alpha = 0;
         this.ok.hitArea = new RoundedRectangle(-70, -27, 140, 58, 12);
         this.ok.once('pointertap', ()=>{
-                Main.observer.emit(Main.EVENT_SHOW_FINAL);
+            mainObserver.emit(EVENT_SHOW_FINAL);
             })
             .interactive = true;
         this.ok.buttonMode = true;
         // this.ok.addChild(new Graphics)
         //     .beginFill(0x00ff00,0.5)
         //     .drawRoundedRect(-70, -27, 140, 58, 12)
-        Main.observer.on(Main.EVENT_MENU_TAP, (button)=>{
-            if(button === this.old) {
-                return;
-            }
+        mainObserver.on(EVENT_MENU_TAP, (button)=>{
             if(this.old) {
                 this.old.deselect();
                 new TWEEN.Tween(this.ok)

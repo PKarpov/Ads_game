@@ -1,5 +1,5 @@
 import {Container, Graphics, Sprite, Texture, utils} from 'pixi.js';
-import Main from "../Main";
+import {mainObserver, EVENT_SHOW_FINAL, Glob} from "./Global";
 import {addScaleXYProperties} from "./utils"
 
 export default class Final extends Container {
@@ -7,13 +7,13 @@ export default class Final extends Container {
         super();
         this.addChild(new Graphics)
             .beginFill(0, 0.7)
-            .drawRect(0, 0, Main.width, Main.height);
+            .drawRect(0, 0, Glob.width, Glob.height);
         this.ads = this.addChild(new Sprite(utils.TextureCache['end']));
-        this.ads.position.set(Main.width * 0.5, 248);
+        this.ads.position.set(Glob.width * 0.5, 248);
         this.ads.anchor.set(0.5);
         addScaleXYProperties(this.ads);
         this.visible = false;
-        Main.observer.on(Main.EVENT_SHOW_FINAL, ()=>{this.showFinal()});
+        mainObserver.once(EVENT_SHOW_FINAL, ()=>{this.showFinal()});
     }
 
     showFinal () {

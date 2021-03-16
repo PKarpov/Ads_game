@@ -1,32 +1,27 @@
-import { Container, Application, Sprite, utils, Loader, Graphics } from 'pixi.js';
+import { Container, Application, Sprite, utils, Loader } from 'pixi.js';
 import Hammer from "./js/Hammer";
 import Menu from "./js/Menu";
 import Stairs from "./js/Stairs";
 import Final from "./js/Final";
+import Curtain from "./js/Curtain";
+import {mainObserver, EVENT_HAMMER_TAP, EVENT_MENU_TAP, Glob} from "./js/Global";
 
 export default class Main {
 	constructor() {
-		Main.width = 1270;
-		Main.height = 640;
-
-        const app = new Application({width: Main.width, height: Main.height, backgroundColor: 0x000000});
+        const app = new Application({width: Glob.width, height: Glob.height, backgroundColor: 0x000000});
 		document.body.appendChild(app.view);
 		app.ticker.add(this.update, this);
-		Main.app = app;
+		this.app = app;
 		this.box = app.stage.addChild(new Container());
-		this.box.position.set(Main.width * 0.5, Main.height * 0.5);
+		this.box.position.set(Glob.width * 0.5, Glob.height * 0.5);
 		this.main = this.box.addChild(new Container());
-		this.main.position.set(-Main.width * 0.5, -Main.height * 0.5);
+		this.main.position.set(-Glob.width * 0.5, -Glob.height * 0.5);
 		this.back = this.main.addChildAt(Sprite.from('./assets/back.jpg'), 0);
+		this.curtain = app.stage.addChild(new Curtain());
+		this.dark = 0;
+
 		Loader.shared.add('art', './assets/texture.json')
 			.load(() => this.createRoom());
-
-		Main.observer = new utils.EventEmitter();
-		Main.EVENT_HAMMER_TAP = 'HAMMER_TAP';
-		Main.EVENT_MENU_TAP = 'MENU_TAP';
-		Main.EVENT_SHOW_FINAL = 'SHOW_FINAL';
-		Main.changes = false;
-		Main.oldId = -1;
 	}
 
 	createRoom() {
@@ -45,8 +40,8 @@ export default class Main {
 		this.menu.position.set(910, 74);
 		this.stairs = new Stairs();
 		this.stairs.position.set(1079, 648);
-		Main.observer.once(Main.EVENT_HAMMER_TAP, this.menu.show, this.menu);
-		Main.observer.on(Main.EVENT_MENU_TAP, (button)=>{this.stairs.showNewStire(button.ID)});
+		mainObserver.once(EVENT_HAMMER_TAP, this.menu.show, this.menu);
+		mainObserver.on(EVENT_MENU_TAP, (button)=>{this.stairs.showNewStire(button.ID)});
 
 		this.main.addChild(this.stairs, this.menu);
 
@@ -66,10 +61,11 @@ export default class Main {
 			.start();
 
 		this.continue = this.main.addChild(new Sprite(utils.TextureCache['continue']));
-		this.continue.position.set(Main.width * 0.5, 555);
+		this.continue.position.set(Glob.width * 0.5, 555);
 		this.continue.anchor.set(0.5);
 		this.continue.PI = 0;
 		this.resize();
+		this.curtain.hideCurtain(500);
 	}
 
 	addArt(art, box = this.main) {
@@ -90,19 +86,29 @@ export default class Main {
 			this.continue.PI += 0.05;
 			this.continue.scale.set(1 + Math.sin(this.continue.PI) * 0.1);
 		}
+		if (this.dark-- === 0) {
+			let w = window.innerWidth;
+			let h = window.innerHeight;
+			const kfStage = Math.min(w / Glob.width, h / Glob.height);
+			w = Glob.width * kfStage / w;
+			h = Glob.height * kfStage / h;
+			this.box.scale.set(w, h);
+			this.curtain.hideCurtain();
+		}
 	}
+
 	resize(){
 		let w = window.innerWidth;
 		let h = window.innerHeight;
-		Main.app.view.style.width = w + "px";
-		Main.app.view.style.height = h + "px";
-		const kfStage = Math.min(w / Main.width, h / Main.height);
-		w = Main.width * kfStage / w;
-		h = Main.height * kfStage / h;
-		this.box.scale.set(w, h);
+		this.app.view.style.width = w + "px";
+		this.app.view.style.height = h + "px";
+		this.curtain.showCurtain();
+		this.dark = 20;
 	}
+
 }
 var Root = new Main();
 window.addEventListener("resize", (e)=> {
 	Root.resize();
 })
+

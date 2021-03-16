@@ -1,5 +1,5 @@
 import { Sprite, utils } from 'pixi.js';
-import Main from "../Main";
+import {mainObserver, EVENT_HAMMER_TAP} from "./Global";
 
 export default class Hammer extends Sprite{
     constructor() {
@@ -65,7 +65,7 @@ export default class Hammer extends Sprite{
             new TWEEN.Tween(this)
                 .to({alpha: 0.1}, 200)
                 .onComplete(()=>{
-                    Main.observer.emit(Main.EVENT_HAMMER_TAP);
+                    mainObserver.emit(EVENT_HAMMER_TAP);
                     this.parent.removeChild(this)})
                 .start();
         }
