@@ -5,6 +5,7 @@ import Stairs from "./js/Stairs";
 import Final from "./js/Final";
 import Curtain from "./js/Curtain";
 import {mainObserver, EVENT_HAMMER_TAP, EVENT_MENU_TAP, Glob} from "./js/Global";
+import {addArt, getNewSprite} from "./js/utils"
 
 export default class Main {
 	constructor() {
@@ -15,8 +16,8 @@ export default class Main {
 		this.box = app.stage.addChild(new Container());
 		this.box.position.set(Glob.width * 0.5, Glob.height * 0.5);
 		this.main = this.box.addChild(new Container());
+		this.main.addChildAt(Sprite.from('./assets/back.jpg'), 0);
 		this.main.position.set(-Glob.width * 0.5, -Glob.height * 0.5);
-		this.back = this.main.addChildAt(Sprite.from('./assets/back.jpg'), 0);
 		this.curtain = app.stage.addChild(new Curtain());
 		this.dark = 0;
 
@@ -26,7 +27,7 @@ export default class Main {
 
 	createRoom() {
 		this.decor = this.main.addChild(new Container());
-		this.addArt(
+		addArt(
 			[{png: 'dec0', x: 456, y: -43},
 			{png: 'dec0', x: 1135, y: 164},
 			{png: 'dec1', x: 834, y: -28},
@@ -47,17 +48,16 @@ export default class Main {
 
 		this.main.addChild(new Hammer);
 
-		this.addArt([{png: 'dec', x: 1124, y:438}]);
+		addArt([{png: 'dec', x: 1124, y:438}], this.main);
 
 		this.main.addChild(new Final());
 
-		this.addArt([{png: 'logo', x: 175, y:55, name:'logo'}]);
-		this.logo.anchor.set(0.5);
-		this.logo.scale.set(0);
-		new TWEEN.Tween(this.logo.scale)
+		// addArt([{png: 'logo',, name:'logo'}], this.main);
+		this.logo = this.main.addChild(getNewSprite({png: "logo", xy: [175, 55], an: [0.5], sc: [0]}, true));
+		new TWEEN.Tween(this.logo)
 			.delay(400)
 			.easing(TWEEN.Easing.Bounce.Out)
-			.to({x: 1, y: 1}, 800)
+			.to({scaleXY: 1}, 800)
 			.start();
 
 		this.continue = this.main.addChild(new Sprite(utils.TextureCache['continue']));
@@ -68,20 +68,8 @@ export default class Main {
 		this.curtain.hideCurtain(500);
 	}
 
-	addArt(art, box = this.main) {
-		let item;
-		for (let i = 0; i < art.length; i++) {
-			item = art[i];
-			let tt = box.addChild(new Sprite(utils.TextureCache[item.png]));
-			tt.position.set(item.x, item.y);
-			if(item.name) {
-				this[item.name] = tt;
-			}
-		}
-	}
-
 	update(dt) {
-		TWEEN.update();
+		TWEEN.update(dt);
 		if (this.continue) {//пульсация кнопки Continue
 			this.continue.PI += 0.05;
 			this.continue.scale.set(1 + Math.sin(this.continue.PI) * 0.1);
@@ -108,7 +96,7 @@ export default class Main {
 
 }
 var Root = new Main();
-window.addEventListener("resize", (e)=> {
+window.addEventListener("resize", () => {
 	Root.resize();
-})
+});
 

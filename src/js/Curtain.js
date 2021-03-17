@@ -13,9 +13,10 @@ export default class Curtain extends Graphics {
         this.visible = true;
     }
 
-    hideCurtain() {
+    hideCurtain(delay) {
         if (this.tw || this.alpha === 0) return;
         this.tw = new TWEEN.Tween(this)
+            .delay(delay)
             .to({alpha:0}, 500)
             .onComplete(()=>{
                 this.visible = false;

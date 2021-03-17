@@ -34,7 +34,7 @@ export default class Stairs extends Container {
                 this.oldStair.texture = this.newStair.texture;
                 this.oldStair.alpha = 1;
                 this.newStair.visible = false;
-                Glob.restructurinG = false;
+                Glob.restructuring = false;
             })
             .start();
     }

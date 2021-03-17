@@ -22,8 +22,8 @@ export default class Menu extends Sprite {
     }
 
     pointerTap() {
-        if (Glob.restructurinG || this.ID === Glob.oldId) return;
-        Glob.restructurinG = true;
+        if (Glob.restructuring || this.ID === Glob.oldId) return;
+        Glob.restructuring = true;
         Glob.oldId = this.ID;
         mainObserver.emit(EVENT_MENU_TAP, this);
         new TWEEN.Tween(this.select)

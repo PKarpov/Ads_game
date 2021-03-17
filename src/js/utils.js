@@ -1,3 +1,5 @@
+import {Sprite, utils} from "pixi.js";
+
 function addScaleXYProperties(object) {//для упрощения работы с TWEEN
     Object.defineProperties(object,
         {
@@ -30,4 +32,35 @@ function addScaleXYProperties(object) {//для упрощения работы 
                 }
         });
 }
-export { addScaleXYProperties };
+
+function addArt(art, box) {
+    let item;
+    for (let i = 0; i < art.length; i++) {
+        item = art[i];
+        let tt = new Sprite(utils.TextureCache[item.png]);
+        tt.position.set(item.x, item.y);
+        box.addChild(tt);
+    }
+}
+
+function getNewSprite(data, xy) {
+    let sprite = new Sprite(utils.TextureCache[data.png]);
+    if (data.xy) {
+        sprite.position.set(...data.xy);
+    }
+    if(data.an) {
+        sprite.anchor.set(...data.an);
+    }
+    if (data.sc) {
+        sprite.anchor.set(...data.sc);
+    }
+    if (data.ti) {
+        sprite.tint = data.tint;
+    }
+    if (xy) {
+        addScaleXYProperties(sprite);
+    }
+    return sprite;
+}
+
+export { addScaleXYProperties, addArt, getNewSprite };
