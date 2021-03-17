@@ -6,7 +6,7 @@ export default class Curtain extends Graphics {
         super();
         this.beginFill(0)
             .drawRect(0, 0, Glob.width, Glob.height);
-        this.showTime = 0;
+        this.showTime = 100000;
     }
 
     showCurtain() {
