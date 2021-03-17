@@ -50,13 +50,15 @@ function getNewSprite(data, xy) {
     }
     if(data.an) {
         sprite.anchor.set(0.5);
-        console.log(...data.an);
     }
     if (data.sc) {
         sprite.scale.set(...data.sc);
     }
     if (data.ti) {
         sprite.tint = data.tint;
+    }
+    if (data.rt) {
+        sprite.rotation = data.rt;
     }
     if (xy) {
         addScaleXYProperties(sprite);

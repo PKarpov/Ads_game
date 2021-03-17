@@ -4,7 +4,7 @@ import Menu from "./js/Menu";
 import Stairs from "./js/Stairs";
 import Final from "./js/Final";
 import Curtain from "./js/Curtain";
-import {mainObserver, EVENT_HAMMER_TAP, EVENT_MENU_TAP, Glob} from "./js/Global";
+import {Glob} from "./js/Global";
 import {addArt, getNewSprite} from "./js/utils"
 
 class Main {
@@ -47,17 +47,11 @@ class Main {
 
 		this.main.addChild(new Final());
 
-		this.logo = this.main.addChild(getNewSprite({png: "logo", xy: [175, 55], an: [0.5], sc: [0]}, true));
-		new TWEEN.Tween(this.logo)
-			.easing(TWEEN.Easing.Bounce.Out)
-			.to({scaleXY: 1}, 800)
-			.start();
+		this.logo = this.main.addChild(getNewSprite({png: "logo", xy: [175, 55], an: [0.5]}, true));
 
 		this.continue = this.main.addChild(getNewSprite({png: "continue", xy: [Glob.width * 0.5, 555], an: [0.5]}, true));
 		this.continue.PI = 0;
 
-		mainObserver.once(EVENT_HAMMER_TAP, this.menu.show, this.menu);
-		mainObserver.on(EVENT_MENU_TAP, (button)=>{this.stairs.showNewStire(button.ID)});
 		this.resize();
 	}
 
@@ -67,12 +61,17 @@ class Main {
 			this.continue.PI += 0.05;
 			this.continue.scale.set(1 + Math.sin(this.continue.PI) * 0.1);
 		}
-		if (this.curtain.showTime-- === 0) {
+		if (this.curtain.showTime > 0 && --this.curtain.showTime === 0) {
 			let w = window.innerWidth;
 			let h = window.innerHeight;
 			const kfStage = Math.min(w / Glob.width, h / Glob.height);
 			this.box.scale.set((Glob.width * kfStage / w), (Glob.height * kfStage / h));
 			this.curtain.hideCurtain();
+			this.logo.scale.set(0);
+			new TWEEN.Tween(this.logo)
+				.easing(TWEEN.Easing.Bounce.Out)
+				.to({scaleXY: 1}, 800)
+				.start();
 		}
 	}
 

@@ -1,6 +1,6 @@
 import {Container, Sprite, utils, AnimatedSprite} from 'pixi.js';
 import {addScaleXYProperties} from "./utils"
-import {Glob} from "./Global";
+import {EVENT_MENU_TAP, Glob, mainObserver} from "./Global";
 
 export default class Stairs extends Container {
     constructor(){
@@ -16,9 +16,11 @@ export default class Stairs extends Container {
         this.newStair.anchor.set(0.5, 1);
         this.newStair.gotoAndStop(1);
         this.newStair.visible = false;
+        mainObserver.on(EVENT_MENU_TAP, this.showNewStire, this);
     }
 
-    showNewStire(id) {
+    showNewStire(button) {
+        const id = button.ID;
         this.newStair.alpha = 0;
         this.newStair.scaleY = 1.2;
         this.newStair.visible = true;
