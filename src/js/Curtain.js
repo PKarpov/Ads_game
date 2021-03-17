@@ -6,17 +6,23 @@ export default class Curtain extends Graphics {
         super();
         this.beginFill(0)
             .drawRect(0, 0, Glob.width, Glob.height);
+        this.showTime = 0;
     }
 
     showCurtain() {
+        if (this.tw) {
+            this.tw.stop();
+            TWEEN.remove(this.tw);
+            this.tw = null
+        }
         this.alpha = 1;
         this.visible = true;
+        this.showTime = 20;
     }
 
-    hideCurtain(delay) {
+    hideCurtain() {
         if (this.tw || this.alpha === 0) return;
         this.tw = new TWEEN.Tween(this)
-            .delay(delay)
             .to({alpha:0}, 500)
             .onComplete(()=>{
                 this.visible = false;

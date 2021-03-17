@@ -49,10 +49,11 @@ function getNewSprite(data, xy) {
         sprite.position.set(...data.xy);
     }
     if(data.an) {
-        sprite.anchor.set(...data.an);
+        sprite.anchor.set(0.5);
+        console.log(...data.an);
     }
     if (data.sc) {
-        sprite.anchor.set(...data.sc);
+        sprite.scale.set(...data.sc);
     }
     if (data.ti) {
         sprite.tint = data.tint;

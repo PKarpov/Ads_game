@@ -13,7 +13,7 @@ export default class Menu extends Sprite {
         this.img = this.addChild(new Sprite(utils.TextureCache['carpet'+id]));
         this.img.anchor.set(0.5);
         addScaleXYProperties(this);
-        this.scaleXY = 0.1;
+        this.scale.set(0);
         this.alpha = 0;
         this.select.alpha = 0;
         this.visible = false;
@@ -28,7 +28,6 @@ export default class Menu extends Sprite {
         mainObserver.emit(EVENT_MENU_TAP, this);
         new TWEEN.Tween(this.select)
             .easing(TWEEN.Easing.Cubic.In)
-            .onUpdate(()=>{this.select.alpha})
             .to({alpha:1}, 500)
             .start();
     }
@@ -38,9 +37,9 @@ export default class Menu extends Sprite {
             .to({alpha:0}, 500)
             .start();
     }
-    show() {
+    show(delay) {
          new TWEEN.Tween(this)
-             .delay(400*this.ID)
+             .delay(delay)
              .onStart(()=>{this.visible = true})
              .easing(TWEEN.Easing.Elastic.Out)
              .to({scaleXY: 1, alpha:1}, 800)

@@ -40,7 +40,7 @@ export default class Menu extends Container {
 
     show(){
         for (let i = 0; i < 3; i++) {
-            this.getChildAt(i).show(i);
+            this.getChildAt(i).show(i * 400);
         }
         this.visible = true;
     }
