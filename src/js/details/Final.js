@@ -1,6 +1,6 @@
 import {Container, Graphics, Sprite, utils} from 'pixi.js';
-import {mainObserver, EVENT_SHOW_FINAL, Glob} from "./Global";
-import {addScaleXYProperties} from "./utils"
+import {mainObserver, EVENT_SHOW_FINAL, Glob} from "../Global";
+import {addScaleXYProperties} from "../tools/utils"
 
 export default class Final extends Container {
     constructor() {

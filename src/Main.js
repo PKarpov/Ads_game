@@ -1,11 +1,11 @@
 import { Container, Application, Sprite, Loader } from 'pixi.js';
-import Hammer from "./js/Hammer";
-import Menu from "./js/Menu";
-import Stairs from "./js/Stairs";
-import Final from "./js/Final";
-import Curtain from "./js/Curtain";
+import Hammer from "./js/ui/Hammer";
+import Menu from "./js/ui/Menu";
+import Stairs from "./js/details/Stairs";
+import Final from "./js/details/Final";
+import Curtain from "./js/details/Curtain";
 import {Glob} from "./js/Global";
-import {addArt, getNewSprite} from "./js/utils"
+import {addArt, getNewSprite} from "./js/tools/utils"
 
 class Main {
 	constructor() {

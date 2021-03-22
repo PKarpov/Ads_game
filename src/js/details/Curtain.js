@@ -1,5 +1,5 @@
 import {Graphics} from 'pixi.js';
-import {Glob} from "./Global";
+import {Glob} from "../Global";
 
 export default class Curtain extends Graphics {
     constructor(){

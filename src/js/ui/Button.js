@@ -1,6 +1,6 @@
 import { Sprite, utils} from 'pixi.js';
-import {mainObserver, EVENT_MENU_TAP, Glob} from "./Global";
-import {addScaleXYProperties} from "./utils"
+import {mainObserver, EVENT_MENU_TAP, Glob} from "../Global";
+import {addScaleXYProperties} from "../tools/utils"
 
 export default class Menu extends Sprite {
 

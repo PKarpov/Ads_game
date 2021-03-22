@@ -1,5 +1,5 @@
 import { Sprite, utils } from 'pixi.js';
-import {mainObserver, EVENT_HAMMER_TAP} from "./Global";
+import {mainObserver, EVENT_HAMMER_TAP} from "../Global";
 
 export default class Hammer extends Sprite{
     constructor() {

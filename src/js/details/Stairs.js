@@ -1,6 +1,6 @@
 import {Container, Sprite, utils, AnimatedSprite} from 'pixi.js';
-import {addScaleXYProperties} from "./utils"
-import {EVENT_MENU_TAP, Glob, mainObserver} from "./Global";
+import {addScaleXYProperties} from "../tools/utils"
+import {EVENT_MENU_TAP, Glob, mainObserver} from "../Global";
 
 export default class Stairs extends Container {
     constructor(){

@@ -1,5 +1,5 @@
 import {Container, Sprite, RoundedRectangle } from 'pixi.js';
-import {mainObserver, EVENT_MENU_TAP, EVENT_SHOW_FINAL, EVENT_HAMMER_TAP} from "./Global";
+import {mainObserver, EVENT_MENU_TAP, EVENT_SHOW_FINAL, EVENT_HAMMER_TAP} from "../Global";
 import Button from "./Button";
 
 export default class Menu extends Container {
